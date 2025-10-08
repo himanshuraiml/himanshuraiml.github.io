@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sarah-johnson-portfolio.netlify.app/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# Block access to admin areas (if any)
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /api/
