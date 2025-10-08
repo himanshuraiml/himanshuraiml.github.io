@@ -75,9 +75,7 @@ export default function Teaching() {
     }
   ];
 
-  const teachingAwards = [
-    
-  ];
+  const teachingAwards: any[] = [];
 
   const teachingStats = [
     { label: "Students Taught", value: "5000+", icon: "👥" },

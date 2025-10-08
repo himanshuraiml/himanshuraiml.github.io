@@ -50,27 +50,28 @@ const postsDirectory = path.join(process.cwd(), 'content/blogs');
 const renderer = new marked.Renderer();
 
 // Custom heading renderer with anchor links
-renderer.heading = (text: string, level: number) => {
+renderer.heading = ({ tokens, depth }: any) => {
+  const text = tokens.map((t: any) => t.text || t.raw).join('');
   const textContent = typeof text === 'string' ? text : String(text);
   const escapedText = textContent.toLowerCase().replace(/[^\w]+/g, '-');
   return `
-    <h${level} id="${escapedText}" class="markdown-heading markdown-h${level}">
+    <h${depth} id="${escapedText}" class="markdown-heading markdown-h${depth}">
       <a href="#${escapedText}" class="anchor-link">#</a>
       ${textContent}
-    </h${level}>
+    </h${depth}>
   `;
 };
 
 // Custom code block renderer with syntax highlighting
-renderer.code = (code: string, infostring: string | undefined) => {
-  const lang = infostring || 'text';
-  let highlightedCode = code;
+renderer.code = ({ text, lang }: any) => {
+  const language = lang || 'text';
+  let highlightedCode = text;
 
   try {
-    if (hljs.getLanguage(lang)) {
-      highlightedCode = hljs.highlight(code, { language: lang }).value;
+    if (hljs.getLanguage(language)) {
+      highlightedCode = hljs.highlight(text, { language }).value;
     } else {
-      highlightedCode = hljs.highlightAuto(code).value;
+      highlightedCode = hljs.highlightAuto(text).value;
     }
   } catch (error) {
     console.warn('Syntax highlighting failed:', error);
@@ -79,29 +80,33 @@ renderer.code = (code: string, infostring: string | undefined) => {
   return `
     <div class="code-block-container">
       <div class="code-block-header">
-        <span class="code-language">${lang}</span>
+        <span class="code-language">${language}</span>
         <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
       </div>
-      <pre class="code-block"><code class="hljs language-${lang}">${highlightedCode}</code></pre>
+      <pre class="code-block"><code class="hljs language-${language}">${highlightedCode}</code></pre>
     </div>
   `;
 };
 
 // Custom blockquote renderer
-renderer.blockquote = (quote: string) => `<blockquote class="markdown-blockquote">${quote}</blockquote>`;
+renderer.blockquote = ({ tokens }: any) => {
+  const quote = tokens.map((t: any) => t.text || t.raw).join('');
+  return `<blockquote class="markdown-blockquote">${quote}</blockquote>`;
+};
 
 // Custom table renderer
-renderer.table = (header: string, body: string) => `
+renderer.table = ({ header, rows }: any) => `
   <div class="table-container">
     <table class="markdown-table">
       <thead>${header}</thead>
-      <tbody>${body}</tbody>
+      <tbody>${rows}</tbody>
     </table>
   </div>
 `;
 
 // Custom link renderer for external links
-renderer.link = (href: string, title: string | null, text: string) => {
+renderer.link = ({ href, title, tokens }: any) => {
+  const text = tokens.map((t: any) => t.text || t.raw).join('');
   const isExternal = href.startsWith('http') && !href.includes('localhost');
   const rel = isExternal ? 'rel="noopener noreferrer"' : '';
   const target = isExternal ? 'target="_blank"' : '';
@@ -112,8 +117,7 @@ renderer.link = (href: string, title: string | null, text: string) => {
 marked.use({
   renderer,
   gfm: true,
-  breaks: true,
-  smartypants: true
+  breaks: true
 });
 
 function calculateReadTime(content: string): number {

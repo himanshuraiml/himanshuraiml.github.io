@@ -202,7 +202,7 @@ export default function Publications() {
   ];
 
   // Get unique years and sort them
-  const years = [...new Set(publications.map(p => p.year))].sort((a, b) => b - a);
+  const years = Array.from(new Set(publications.map(p => p.year))).sort((a, b) => b - a);
   
   // Filter publications based on search and filters
   const filteredPublications = publications.filter(pub => {
