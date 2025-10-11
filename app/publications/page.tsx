@@ -43,20 +43,9 @@ export default function Publications() {
       abstract: "This work presents a modified BiLSTM-CNN model for predicting customer churn in social networks, demonstrating improved accuracy over traditional approaches through advanced deep learning architectures.",
       keywords: ["BiLSTM-CNN", "Churn Prediction", "Social Networks", "Deep Learning"]
     },
+    
     {
       id: 2,
-      title: "Enhancing Adaptive Learning Platforms through AI‑Driven Content Analysis and Multimedia Generation",
-      authors: ["H. Rai", "A. Srivastava", "A. Singh", "S. Srivastava"],
-      venue: "International Conference on Artificial Intelligence and Sustainable Innovation",
-      year: 2025,
-      type: "conference",
-      url: "#",
-      citations: 1,
-      abstract: "This research presents an AI-driven approach to enhance adaptive learning platforms through intelligent content analysis and automated multimedia generation, improving personalized learning experiences.",
-      keywords: ["Adaptive Learning", "AI-Driven Content", "Educational Technology", "Multimedia Generation"]
-    },
-    {
-      id: 3,
       title: "Modified XceptionNet Architecture for Accurate Fake Image Classification on Real‑Fake HQ Dataset",
       authors: ["S. Sinha", "J. Kesarwani", "V. Tiwari", "H. Rai"],
       venue: "International Conference on Artificial Intelligence and Sustainable Innovation",
@@ -68,7 +57,7 @@ export default function Publications() {
       keywords: ["XceptionNet", "Fake Image Detection", "Computer Vision", "Deep Learning"]
     },
     {
-      id: 4,
+      id: 3,
       title: "A Hybrid Approach for Process Scheduling in Cloud Environment Using Particle Swarm Optimization Technique",
       authors: ["H. Rai", "S. K. Ojha", "A. Nazarov"],
       venue: "International Conference Engineering and Telecommunication (En&T)",
@@ -82,7 +71,7 @@ export default function Publications() {
       keywords: ["Process Scheduling", "Cloud Computing", "Particle Swarm Optimization", "Hybrid Algorithms"]
     },
     {
-      id: 5,
+      id: 4,
       title: "Generative Adversarial Networks (GANs): Introduction and vista",
       authors: ["J. Kesarwani", "H. Rai"],
       venue: "CRC Press eBooks",
@@ -94,110 +83,6 @@ export default function Publications() {
       citations: 8,
       abstract: "This chapter provides a comprehensive introduction to Generative Adversarial Networks, exploring their architecture, applications, and future prospects in various domains.",
       keywords: ["Generative Adversarial Networks", "GANs", "Deep Learning", "Generative Models"]
-    },
-    {
-      id: 4,
-      title: "Automated Neural Architecture Search for Edge Computing Devices",
-      authors: ["S. Johnson", "H. Zhang", "B. Kumar"],
-      venue: "Advances in Neural Information Processing Systems (NeurIPS)",
-      year: 2023,
-      type: "conference",
-      pages: "12456-12468",
-      doi: "10.5555/neurips.2023.12456",
-      url: "#",
-      citations: 78,
-      abstract: "We present an automated neural architecture search method specifically optimized for edge computing devices, balancing model accuracy with computational efficiency and energy constraints.",
-      keywords: ["Neural Architecture Search", "Edge Computing", "Model Optimization", "Efficiency"]
-    },
-    {
-      id: 5,
-      title: "Transfer Learning in Low-Resource Medical Imaging: Challenges and Solutions",
-      authors: ["S. Johnson", "Q. Wang", "F. Martinez"],
-      venue: "Medical Image Analysis",
-      year: 2023,
-      type: "journal",
-      volume: "89",
-      pages: "102456",
-      doi: "10.1016/j.media.2023.102456",
-      url: "#",
-      citations: 156,
-      abstract: "This work addresses the challenges of applying transfer learning techniques in low-resource medical imaging scenarios, proposing novel domain adaptation strategies for improved diagnostic accuracy.",
-      keywords: ["Transfer Learning", "Medical Imaging", "Domain Adaptation", "Low-Resource Learning"]
-    },
-    {
-      id: 6,
-      title: "Ethical Considerations in AI-Powered Educational Technology",
-      authors: ["S. Johnson", "E. Brown", "N. Davis"],
-      venue: "ACM Transactions on Computing Education",
-      year: 2022,
-      type: "journal",
-      volume: "22",
-      issue: "4",
-      pages: "1-28",
-      doi: "10.1145/3529190",
-      url: "#",
-      citations: 89,
-      abstract: "We examine the ethical implications of deploying AI systems in educational contexts, focusing on fairness, transparency, and the potential for algorithmic bias in student assessment and personalized learning systems.",
-      keywords: ["AI Ethics", "Educational Technology", "Algorithmic Fairness", "Student Assessment"]
-    },
-    {
-      id: 7,
-      title: "Deep Reinforcement Learning for Autonomous Vehicle Navigation in Complex Urban Environments",
-      authors: ["S. Johnson", "V. Patel", "G. Thompson", "I. Lee"],
-      venue: "IEEE International Conference on Robotics and Automation (ICRA)",
-      year: 2022,
-      type: "conference",
-      pages: "7890-7897",
-      doi: "10.1109/ICRA.2022.7890123",
-      url: "#",
-      citations: 234,
-      abstract: "This paper presents a deep reinforcement learning approach for autonomous vehicle navigation in complex urban environments, demonstrating improved safety and efficiency compared to traditional path planning methods.",
-      keywords: ["Reinforcement Learning", "Autonomous Vehicles", "Navigation", "Urban Planning"]
-    },
-    {
-      id: 8,
-      title: "Attention Mechanisms in Computer Vision: A Systematic Review",
-      authors: ["S. Johnson", "C. Wilson", "Y. Zhou"],
-      venue: "Computer Vision and Image Understanding",
-      year: 2022,
-      type: "journal",
-      volume: "215",
-      pages: "103421",
-      doi: "10.1016/j.cviu.2021.103421",
-      url: "#",
-      citations: 312,
-      abstract: "This systematic review analyzes the evolution and effectiveness of attention mechanisms in computer vision applications, providing a comprehensive taxonomy and performance comparison.",
-      keywords: ["Attention Mechanisms", "Computer Vision", "Systematic Review", "Deep Learning"]
-    },
-    {
-      id: 9,
-      title: "Blockchain-Based Secure Data Sharing in Healthcare Systems",
-      authors: ["S. Johnson", "R. Kumar", "M. Ali"],
-      venue: "IEEE Transactions on Biomedical Engineering",
-      year: 2021,
-      type: "journal",
-      volume: "68",
-      issue: "9",
-      pages: "2567-2576",
-      doi: "10.1109/TBME.2021.2567890",
-      url: "#",
-      citations: 198,
-      abstract: "We propose a blockchain-based framework for secure and transparent data sharing in healthcare systems, addressing privacy concerns while enabling collaborative research and improved patient outcomes.",
-      keywords: ["Blockchain", "Healthcare", "Data Security", "Privacy"]
-    },
-    {
-      id: 10,
-      title: "Meta-Learning for Few-Shot Classification in Medical Imaging",
-      authors: ["S. Johnson", "A. Gupta", "S. Park"],
-      venue: "International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI)",
-      year: 2021,
-      type: "conference",
-      pages: "456-465",
-      doi: "10.1007/978-3-030-87234-2_43",
-      url: "#",
-      citations: 142,
-      abstract: "This work introduces a meta-learning approach for few-shot classification in medical imaging, enabling rapid adaptation to new medical conditions with minimal training data.",
-      keywords: ["Meta-Learning", "Few-Shot Learning", "Medical Imaging", "Classification"]
     }
   ];
 
