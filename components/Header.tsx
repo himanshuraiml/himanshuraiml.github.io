@@ -7,9 +7,9 @@ import { Menu, X, User, BookOpen, Search, FileText, GraduationCap, MessageSquare
 const navigation = [
   { name: 'Home', href: '/', icon: User },
   { name: 'About', href: '/about', icon: User },
-  { name: 'Research', href: '/research', icon: Search },
-  { name: 'Publications', href: '/publications', icon: FileText },
-  { name: 'Teaching', href: '/teaching', icon: GraduationCap },
+  { name: 'Features', href: '/research', icon: Search },
+  { name: 'Pricing', href: '/publications', icon: FileText },
+  { name: 'Resources', href: '/teaching', icon: GraduationCap },
   { name: 'Blog', href: '/blog', icon: MessageSquare },
   { name: 'Contact', href: '/contact', icon: Mail },
 ];
@@ -27,7 +27,7 @@ export default function Header() {
               <div className="h-8 w-8 bg-blue-900 rounded-lg flex items-center justify-center">
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-900">Dr. Himanshu Rai</span>
+              <span className="text-xl font-bold text-gray-900">Your Brand</span>
             </Link>
           </div>
 
