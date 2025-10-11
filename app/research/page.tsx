@@ -10,7 +10,7 @@ export default function Research() {
       icon: Brain,
       description: "Developing advanced generative AI models, tiny machine learning for edge devices, and novel neural network architectures for various applications.",
       topics: ["Generative Adversarial Networks", "TinyML", "Modified BiLSTM-CNN", "XceptionNet Architecture"],
-      publications: 12,
+      publications: 4,
       color: "bg-blue-100 text-blue-900"
     },
     {
@@ -18,7 +18,7 @@ export default function Research() {
       icon: Search,
       description: "Research in cloud load balancing, process scheduling optimization, and distributed computing systems for enhanced performance.",
       topics: ["Load Balancing Algorithms", "Process Scheduling", "Cloud Security", "Hybrid Optimization"],
-      publications: 8,
+      publications: 4,
       color: "bg-green-100 text-green-900"
     },
     {
@@ -26,7 +26,7 @@ export default function Research() {
       icon: Shield,
       description: "Advanced computer vision applications including fake image detection, video tracking, and biometric authentication systems.",
       topics: ["Fake Image Classification", "Multi-Object Video Tracking", "Biometric Authentication", "DOM Parsing"],
-      publications: 6,
+      publications: 4,
       color: "bg-purple-100 text-purple-900"
     },
     {
@@ -34,7 +34,7 @@ export default function Research() {
       icon: Users,
       description: "AI-driven educational platforms, adaptive learning systems, and intelligent automation applications for enhanced learning experiences.",
       topics: ["Adaptive Learning Platforms", "AI-Driven Content Analysis", "Educational Data Mining", "Multimedia Generation"],
-      publications: 8,
+      publications: 1,
       color: "bg-orange-100 text-orange-900"
     }
   ];
@@ -43,46 +43,46 @@ export default function Research() {
     {
       title: "AI-Powered Healthcare Diagnostics",
       status: "Active",
-      funding: "$750K NSF Grant",
+      funding: "",
       duration: "2023-2026",
       description: "Developing machine learning models for early detection of diseases using medical imaging and patient data, with focus on accessibility and fairness across diverse populations.",
-      collaborators: ["Stanford Medical School", "Johns Hopkins University"],
-      impact: "Potential to improve diagnostic accuracy by 30% while reducing costs"
+      collaborators: [],
+      impact: "Potential to improve diagnostic accuracy while reducing costs"
     },
     {
       title: "Explainable AI for Educational Technology",
       status: "Active",
-      funding: "$500K Department of Education",
+      funding: "",
       duration: "2024-2027",
       description: "Creating interpretable AI systems that can provide personalized learning experiences while maintaining transparency in decision-making processes.",
-      collaborators: ["MIT Computer Science", "University of Washington"],
+      collaborators: [],
       impact: "Supporting 10,000+ students with personalized learning paths"
     },
     {
       title: "Federated Learning for Privacy-Preserving Analytics",
       status: "Active",
-      funding: "$400K Industry Partnership",
-      duration: "2023-2025",
+      funding: "",
+      duration: "",
       description: "Developing secure machine learning algorithms that can train on distributed data without compromising user privacy or sensitive information.",
-      collaborators: ["Google Research", "Microsoft Research"],
+      collaborators: [],
       impact: "Enabling secure AI collaboration across organizations"
     },
     {
       title: "Neural Architecture Search for Edge Computing",
       status: "Recently Completed",
-      funding: "$300K NSF Grant",
-      duration: "2021-2023",
+      funding: "",
+      duration: "",
       description: "Automated design of efficient neural network architectures optimized for deployment on resource-constrained edge devices.",
-      collaborators: ["UC Berkeley", "NVIDIA Research"],
+      collaborators: [""],
       impact: "50% reduction in model size with maintained accuracy"
     }
   ];
 
   const researchMetrics = [
-    { label: "Publications", value: "50+", icon: "📄" },
-    { label: "Citations", value: "2,500+", icon: "📈" },
-    { label: "H-Index", value: "24", icon: "📊" },
-    { label: "Active Grants", value: "$1.2M", icon: "💰" }
+    { label: "Publications", value: "15+", icon: "📄" },
+    { label: "Citations", value: "50+", icon: "📈" },
+    { label: "H-Index", value: "4", icon: "📊" },
+    { label: "Active Grants", value: "", icon: "💰" }
   ];
 
   return (
