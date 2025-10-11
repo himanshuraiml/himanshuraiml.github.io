@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState, useEffect } from 'react';
 import { Search, Filter, Download, ExternalLink, Calendar, Users, BookOpen, Award, RefreshCw } from 'lucide-react';
-import { getPublications, syncGoogleScholar, type Publication } from '@/lib/publications';
+import { getPublications, syncGoogleScholar, seedInitialPublications, type Publication } from '@/lib/publications';
 
 export default function Publications() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,6 +21,24 @@ export default function Publications() {
   useEffect(() => {
     loadPublications();
   }, []);
+
+  async function handleSeedData() {
+    setSyncing(true);
+    setSyncMessage('Loading initial publications...');
+
+    const result = await seedInitialPublications();
+
+    if (result.success) {
+      setSyncMessage(`Successfully loaded ${result.count} publications!`);
+      await loadPublications();
+      setTimeout(() => setSyncMessage(''), 3000);
+    } else {
+      setSyncMessage(`Error: ${result.error}`);
+      setTimeout(() => setSyncMessage(''), 5000);
+    }
+
+    setSyncing(false);
+  }
 
   async function loadPublications() {
     setLoading(true);
@@ -148,14 +166,25 @@ export default function Publications() {
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                   Publications
                 </h1>
-                <button
-                  onClick={handleSync}
-                  disabled={syncing}
-                  className="inline-flex items-center px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                  title="Sync with Google Scholar"
-                >
-                  <RefreshCw className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`} />
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleSync}
+                    disabled={syncing}
+                    className="inline-flex items-center px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                    title="Sync with Google Scholar"
+                  >
+                    <RefreshCw className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`} />
+                  </button>
+                  {publications.length === 0 && (
+                    <button
+                      onClick={handleSeedData}
+                      disabled={syncing}
+                      className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 text-sm"
+                    >
+                      Load Publications
+                    </button>
+                  )}
+                </div>
               </div>
               <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
                 Peer-reviewed research contributions to the fields of artificial intelligence,
