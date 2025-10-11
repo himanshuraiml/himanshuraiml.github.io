@@ -5,25 +5,25 @@ import { GraduationCap, Award, MapPin, Calendar, BookOpen, Users, Globe, Lightbu
 export default function About() {
   const education = [
     {
-      year: "2018",
+      year: "2021",
       degree: "Ph.D. in Computer Science",
-      institution: "Stanford University",
-      focus: "Machine Learning and Artificial Intelligence",
-      description: "Dissertation: 'Advanced Neural Network Architectures for Multi-modal Learning'"
+      institution: "Moscow Institute of Physics and Technology",
+      focus: "Cloud Computing ",
+      description: "Dissertation: 'Designing and optimization of multifact load balancing algorithm'"
     },
     {
-      year: "2014",
+      year: "2017",
       degree: "M.S. in Computer Science",
-      institution: "MIT",
-      focus: "Data Science and Analytics",
-      description: "Thesis: 'Scalable Algorithms for Big Data Processing'"
+      institution: "Moscow Institute of Physics and Technology",
+      focus: "Neural Network and Neural Computing",
+      description: "Thesis: ''"
     },
     {
-      year: "2012",
-      degree: "B.S. in Computer Engineering",
-      institution: "UC Berkeley",
-      focus: "Software Systems and Algorithms",
-      description: "Summa Cum Laude, Phi Beta Kappa"
+      year: "2015",
+      degree: "B.Tech in Electronics and Communication",
+      institution: "Lovely professional University, India",
+      focus: "VLSI",
+      description: " "
     }
   ];
 
@@ -35,7 +35,7 @@ export default function About() {
     },
     {
       category: "Programming",
-      skills: ["Python", "R", "Java", "C++", "JavaScript", "SQL"],
+      skills: ["Python", "R", "C++", "JavaScript", "SQL"],
       icon: "💻"
     },
     {
@@ -55,12 +55,12 @@ export default function About() {
     },
     {
       category: "Domains",
-      skills: ["Healthcare AI", "Educational Technology", "Smart Systems", "Ethics in AI"],
+      skills: ["Qunantum Communication"," TinyMl","Healthcare AI", "Educational Technology", "Ethics in AI"],
       icon: "🌐"
     }
   ];
 
-  return (
+  return (,
     <div className="min-h-screen bg-white">
       <Header />
       
@@ -98,7 +98,7 @@ export default function About() {
                     <div className="space-y-4 text-sm">
                       <div className="flex items-center space-x-3">
                         <MapPin className="h-5 w-5 text-gray-400" />
-                        <span className="text-gray-700">University of Technology</span>
+                        <span className="text-gray-700">SRM University , Tiruchirappalli</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <BookOpen className="h-5 w-5 text-gray-400" />
@@ -120,15 +120,14 @@ export default function About() {
               <div className="mt-12 lg:mt-0 lg:col-span-8">
                 <div className="prose prose-lg max-w-none">
                   <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    I am an Assistant Professor in the Computer Science and Engineering Department at the University of Technology, 
+                    I am an Assistant Professor in the Computer Science and Engineering Department at the SRM University , Tiruchirappalli, 
                     where I lead cutting-edge research in artificial intelligence, machine learning, and data science. My work focuses 
                     on developing intelligent systems that can learn, adapt, and make decisions in complex, real-world environments.
                   </p>
                   
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    With over 8 years of experience in both academia and industry, I have published more than 50 peer-reviewed papers 
-                    in top-tier conferences and journals. My research has been funded by prestigious organizations including NSF, NIH, 
-                    and leading technology companies. I am particularly passionate about the intersection of AI and social good, working 
+                    With over 5 years of experience in both academia and industry, I have published more than 15 peer-reviewed papers 
+                    in top-tier conferences and journals. I am particularly passionate about the intersection of AI and social good, working 
                     on projects that address healthcare challenges, educational equity, and sustainable technology solutions.
                   </p>
                   
