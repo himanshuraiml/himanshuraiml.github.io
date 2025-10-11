@@ -2,89 +2,50 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useState } from 'react';
-import { Search, Filter, Download, ExternalLink, Calendar, Users, BookOpen, Award } from 'lucide-react';
-
-type Publication = {
-  id: number;
-  title: string;
-  authors: string[];
-  venue: string;
-  year: number;
-  type: 'journal' | 'conference' | 'workshop' | 'book' | 'preprint';
-  pages?: string;
-  volume?: string;
-  issue?: string;
-  doi?: string;
-  url?: string;
-  citations: number;
-  abstract: string;
-  keywords: string[];
-  award?: string;
-};
+import { useState, useEffect } from 'react';
+import { Search, Filter, Download, ExternalLink, Calendar, Users, BookOpen, Award, RefreshCw } from 'lucide-react';
+import { getPublications, syncGoogleScholar, type Publication } from '@/lib/publications';
 
 export default function Publications() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterYear, setFilterYear] = useState('all');
   const [filterType, setFilterType] = useState('all');
   const [sortBy, setSortBy] = useState('year');
+  const [publications, setPublications] = useState<Publication[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState('');
 
-  const publications: Publication[] = [
-    {
-      id: 1,
-      title: "Churn Prediction in Social Networks Using Modified BiLSTM‑CNN Model",
-      authors: ["H. Rai", "J. Kesarwani"],
-      venue: "AI‑Based Advanced Optimization Techniques for Edge Computing",
-      year: 2025,
-      type: "journal",
-      doi: "10.1002/9781394287062.ch8",
-      url: "#",
-      citations: 5,
-      abstract: "This work presents a modified BiLSTM-CNN model for predicting customer churn in social networks, demonstrating improved accuracy over traditional approaches through advanced deep learning architectures.",
-      keywords: ["BiLSTM-CNN", "Churn Prediction", "Social Networks", "Deep Learning"]
-    },
-    
-    {
-      id: 2,
-      title: "Modified XceptionNet Architecture for Accurate Fake Image Classification on Real‑Fake HQ Dataset",
-      authors: ["S. Sinha", "J. Kesarwani", "V. Tiwari", "H. Rai"],
-      venue: "International Conference on Artificial Intelligence and Sustainable Innovation",
-      year: 2025,
-      type: "conference",
-      url: "#",
-      citations: 2,
-      abstract: "We propose a modified XceptionNet architecture that achieves superior performance in detecting fake images, addressing the growing concern of deepfakes and manipulated visual content.",
-      keywords: ["XceptionNet", "Fake Image Detection", "Computer Vision", "Deep Learning"]
-    },
-    {
-      id: 3,
-      title: "A Hybrid Approach for Process Scheduling in Cloud Environment Using Particle Swarm Optimization Technique",
-      authors: ["H. Rai", "S. K. Ojha", "A. Nazarov"],
-      venue: "International Conference Engineering and Telecommunication (En&T)",
-      year: 2020,
-      type: "conference",
-      pages: "1-5",
-      doi: "10.1109/EnT50437.2020.9431318",
-      url: "#",
-      citations: 15,
-      abstract: "This paper presents a hybrid approach combining particle swarm optimization with traditional scheduling algorithms to improve process scheduling efficiency in cloud computing environments.",
-      keywords: ["Process Scheduling", "Cloud Computing", "Particle Swarm Optimization", "Hybrid Algorithms"]
-    },
-    {
-      id: 4,
-      title: "Generative Adversarial Networks (GANs): Introduction and vista",
-      authors: ["J. Kesarwani", "H. Rai"],
-      venue: "CRC Press eBooks",
-      year: 2023,
-      type: "book",
-      pages: "27-34",
-      doi: "10.1201/9781032684994-5",
-      url: "#",
-      citations: 8,
-      abstract: "This chapter provides a comprehensive introduction to Generative Adversarial Networks, exploring their architecture, applications, and future prospects in various domains.",
-      keywords: ["Generative Adversarial Networks", "GANs", "Deep Learning", "Generative Models"]
+  const GOOGLE_SCHOLAR_ID = 'YOUR_SCHOLAR_ID';
+
+  useEffect(() => {
+    loadPublications();
+  }, []);
+
+  async function loadPublications() {
+    setLoading(true);
+    const data = await getPublications();
+    setPublications(data);
+    setLoading(false);
+  }
+
+  async function handleSync() {
+    setSyncing(true);
+    setSyncMessage('Syncing with Google Scholar...');
+
+    const result = await syncGoogleScholar(GOOGLE_SCHOLAR_ID);
+
+    if (result.success) {
+      setSyncMessage(`Successfully synced ${result.count} publications!`);
+      await loadPublications();
+      setTimeout(() => setSyncMessage(''), 3000);
+    } else {
+      setSyncMessage(`Error: ${result.error}`);
+      setTimeout(() => setSyncMessage(''), 5000);
     }
-  ];
+
+    setSyncing(false);
+  }
 
   // Get unique years and sort them
   const years = Array.from(new Set(publications.map(p => p.year))).sort((a, b) => b - a);
@@ -159,6 +120,21 @@ export default function Publications() {
     return hIndex;
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
+        <main className="pt-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-900 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading publications...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -168,13 +144,28 @@ export default function Publications() {
         <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                Publications
-              </h1>
+              <div className="flex items-center justify-center gap-4">
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                  Publications
+                </h1>
+                <button
+                  onClick={handleSync}
+                  disabled={syncing}
+                  className="inline-flex items-center px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  title="Sync with Google Scholar"
+                >
+                  <RefreshCw className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`} />
+                </button>
+              </div>
               <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-                Peer-reviewed research contributions to the fields of artificial intelligence, 
+                Peer-reviewed research contributions to the fields of artificial intelligence,
                 machine learning, and computer science
               </p>
+              {syncMessage && (
+                <div className={`mt-4 inline-block px-6 py-3 rounded-lg ${syncMessage.includes('Error') ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+                  {syncMessage}
+                </div>
+              )}
             </div>
             
             {/* Publication Stats */}
@@ -311,7 +302,7 @@ export default function Publications() {
                       <p className="text-gray-700">
                         <span className="font-medium">Authors: </span>
                         {pub.authors.map((author, i) => (
-                          <span key={i} className={author === 'S. Johnson' ? 'font-semibold text-blue-900' : ''}>
+                          <span key={i} className={author.includes('H. Rai') || author.includes('Himanshu') ? 'font-semibold text-blue-900' : ''}>
                             {author}{i < pub.authors.length - 1 ? ', ' : ''}
                           </span>
                         ))}
