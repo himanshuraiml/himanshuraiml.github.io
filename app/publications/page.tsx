@@ -58,8 +58,12 @@ export default function Publications() {
       await loadPublications();
       setTimeout(() => setSyncMessage(''), 3000);
     } else {
-      setSyncMessage(`Error: ${result.error}`);
-      setTimeout(() => setSyncMessage(''), 5000);
+      if (result.error?.includes('403')) {
+        setSyncMessage('Google Scholar blocked the request. Use "Load Publications" button instead or update publications manually in the database.');
+      } else {
+        setSyncMessage(`Error: ${result.error}`);
+      }
+      setTimeout(() => setSyncMessage(''), 8000);
     }
 
     setSyncing(false);
@@ -175,15 +179,13 @@ export default function Publications() {
                   >
                     <RefreshCw className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`} />
                   </button>
-                  {publications.length === 0 && (
-                    <button
-                      onClick={handleSeedData}
-                      disabled={syncing}
-                      className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 text-sm"
-                    >
-                      Load Publications
-                    </button>
-                  )}
+                  <button
+                    onClick={handleSeedData}
+                    disabled={syncing}
+                    className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 text-sm"
+                  >
+                    Load Publications
+                  </button>
                 </div>
               </div>
               <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
@@ -191,10 +193,13 @@ export default function Publications() {
                 machine learning, and computer science
               </p>
               {syncMessage && (
-                <div className={`mt-4 inline-block px-6 py-3 rounded-lg ${syncMessage.includes('Error') ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+                <div className={`mt-4 inline-block px-6 py-3 rounded-lg max-w-2xl ${syncMessage.includes('Error') || syncMessage.includes('blocked') ? 'bg-yellow-100 text-yellow-900 border border-yellow-300' : 'bg-green-100 text-green-800'}`}>
                   {syncMessage}
                 </div>
               )}
+              <div className="mt-6 max-w-2xl mx-auto bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-900">
+                <strong>Note:</strong> Google Scholar may block automated sync requests (403 error). Click <strong>Load Publications</strong> to manually load your publications into the database.
+              </div>
             </div>
             
             {/* Publication Stats */}
