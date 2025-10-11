@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Yhttps://github.com/himanshuraiml/himanshuraiml.github.io # Change this to your GitHub repo
+  repo: himanshuraiml/himanshuraiml.github.io
   branch: main
   base_url: https://api.netlify.com
   auth_endpoint: auth
