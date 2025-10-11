@@ -16,7 +16,7 @@ export default function Publications() {
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState('');
 
-  const GOOGLE_SCHOLAR_ID = 'YOUR_SCHOLAR_ID';
+  const GOOGLE_SCHOLAR_ID = 'vUQ7-UoAAAAJ&hl';
 
   useEffect(() => {
     loadPublications();
