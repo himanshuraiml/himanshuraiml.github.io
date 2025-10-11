@@ -60,7 +60,7 @@ export default function About() {
     }
   ];
 
-  return (,
+  return (
     <div className="min-h-screen bg-white">
       <Header />
       
