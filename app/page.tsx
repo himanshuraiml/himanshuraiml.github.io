@@ -66,19 +66,19 @@ export default function Home() {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-gray-50 rounded-lg p-6">
-                <div className="text-sm text-blue-900 font-medium mb-2">Recent Publication</div>
+                {/* <div className="text-sm text-blue-900 font-medium mb-2">Recent Publication</div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   "Advanced Neural Network Architectures for Computer Vision"
                 </h3>
-                <p className="text-gray-600 text-sm mb-4">
+                {/* <p className="text-gray-600 text-sm mb-4">
                   Published in IEEE Transactions on Pattern Analysis and Machine Intelligence (2024)
-                </p>
+                </p> */}
                 <a href="#" className="text-blue-900 hover:text-blue-800 text-sm font-medium">
                   Read more →
                 </a>
-              </div>
+              </div> */}
               
-              <div className="bg-gray-50 rounded-lg p-6">
+              { <div className="bg-gray-50 rounded-lg p-6">
                 <div className="text-sm text-blue-900 font-medium mb-2">Conference Presentation</div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   Keynote at International AI Conference 2024
@@ -89,7 +89,7 @@ export default function Home() {
                 <a href="#" className="text-blue-900 hover:text-blue-800 text-sm font-medium">
                   View details →
                 </a>
-              </div>
+              </div> 
             </div>
           </div>
         </section>
