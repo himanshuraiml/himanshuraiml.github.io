@@ -6,17 +6,17 @@ import Link from 'next/link';
 export default function Teaching() {
   const currentCourses = [
     {
-      code: "CSE 5301",
+      code: "",
       title: "Cloud Computing",
       level: "Graduate",
-      enrollment: 45,
+      enrollment: 60,
       semester: "Fall 2024",
       description: "Comprehensive study of cloud computing concepts, architectures, virtualization, and distributed computing systems.",
       topics: ["Cloud Architectures", "Virtualization", "Load Balancing", "Cloud Security", "Service Models"],
       format: "In-person + Online"
     },
     {
-      code: "CSE 4367",
+      code: "",
       title: "Machine Learning",
       level: "Undergraduate",
       enrollment: 65,
@@ -26,10 +26,10 @@ export default function Teaching() {
       format: "In-person"
     },
     {
-      code: "CSE 6390",
+      code: "",
       title: "Deep Learning",
       level: "Graduate",
-      enrollment: 32,
+      enrollment: 65,
       semester: "Spring 2024",
       description: "Advanced deep learning techniques including CNNs, RNNs, GANs, and modern architectures for various applications.",
       topics: ["Convolutional Networks", "Recurrent Networks", "Generative Models", "Transfer Learning", "TinyML"],
@@ -39,35 +39,35 @@ export default function Teaching() {
 
   const pastCourses = [
     {
-      code: "CSE 3365",
+      code: "",
       title: "Computer Networks",
       level: "Undergraduate",
       semesters: ["Fall 2023", "Spring 2023", "Fall 2022"],
       avgRating: 4.7
     },
     {
-      code: "CSE 5368",
+      code: "",
       title: "Algorithms",
       level: "Undergraduate",
       semesters: ["Spring 2024", "Spring 2023"],
       avgRating: 4.6
     },
     {
-      code: "CSE 2320",
+      code: "",
       title: "Discrete Mathematics",
       level: "Undergraduate",
       semesters: ["Spring 2022", "Fall 2021"],
       avgRating: 4.5
     },
     {
-      code: "CSE 4351",
+      code: "",
       title: "Introduction to Machine Learning",
       level: "Undergraduate",
       semesters: ["Fall 2022", "Spring 2022"],
       avgRating: 4.6
     },
     {
-      code: "CSE 7999",
+      code: "",
       title: "Research Methods in Computer Science",
       level: "PhD Seminar",
       semesters: ["Fall 2023", "Fall 2022"],
