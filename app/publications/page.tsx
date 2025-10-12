@@ -7,7 +7,7 @@ export const revalidate = 0;
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState, useEffect } from 'react';
-import { Search, Filter, Download, ExternalLink, Calendar, Users, BookOpen, Award, RefreshCw } from 'lucide-react';
+import { Search, Filter, Download, ExternalLink, Calendar, Users, BookOpen, Award, RefreshCw, AlertCircle } from 'lucide-react';
 import { getPublications, syncGoogleScholar, seedInitialPublications, type Publication } from '@/lib/publications';
 
 export default function Publications() {
