@@ -1,9 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+function getSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+  return createClient(supabaseUrl, supabaseAnonKey);
+}
 
 export type Publication = {
   id: string;
@@ -27,6 +28,7 @@ export type Publication = {
 };
 
 export async function getPublications(): Promise<Publication[]> {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('publications')
     .select('*')
@@ -42,6 +44,8 @@ export async function getPublications(): Promise<Publication[]> {
 
 export async function syncGoogleScholar(scholarId: string): Promise<{ success: boolean; count?: number; error?: string; debug?: any }> {
   try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
     const apiUrl = `${supabaseUrl}/functions/v1/sync-google-scholar`;
 
     const response = await fetch(apiUrl, {
@@ -116,6 +120,7 @@ export async function seedInitialPublications(): Promise<{ success: boolean; cou
       }
     ];
 
+    const supabase = getSupabase();
     let successCount = 0;
     for (const pub of initialPublications) {
       const { error } = await supabase
