@@ -1,10 +1,7 @@
 [build]
   command = "npm ci --legacy-peer-deps && npm run build"
-  publish = ".next"
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "18"
   NPM_VERSION = "9"
-
-[functions]
-  node_bundler = "esbuild"
