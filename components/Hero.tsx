@@ -41,7 +41,7 @@ export default function Hero() {
                 </div>
                 <div className="flex items-center justify-center lg:justify-start space-x-2 text-gray-600">
                   <MapPin className="h-4 w-4" />
-                  <span>University of Technology</span>
+                  <span>SRM University , Tiruchirappalli</span>
                 </div>
               </div>
 
