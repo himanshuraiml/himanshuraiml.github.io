@@ -1,6 +1,6 @@
 # Dr. Himanshu Rai - Academic Portfolio Website
 
-A professional portfolio website for Dr. Sarah Johnson, Assistant Professor in Computer Science & Engineering, built with Next.js, TypeScript, and Tailwind CSS.
+A professional portfolio website for Dr. Himanshu Rai, Assistant Professor in Computer Science & Engineering, built with Next.js, TypeScript, and Tailwind CSS.
 
 ## 🌟 Features
 
