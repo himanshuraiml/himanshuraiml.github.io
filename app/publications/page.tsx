@@ -1,5 +1,9 @@
 'use client';
 
+// Force dynamic rendering to prevent static generation errors
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState, useEffect } from 'react';
@@ -15,6 +19,7 @@ export default function Publications() {
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const GOOGLE_SCHOLAR_ID = 'vUQ7-UoAAAAJ&hl';
 
@@ -25,52 +30,77 @@ export default function Publications() {
   async function handleSeedData() {
     setSyncing(true);
     setSyncMessage('Loading initial publications...');
+    setError(null);
 
-    const result = await seedInitialPublications();
+    try {
+      const result = await seedInitialPublications();
 
-    if (result.success) {
-      setSyncMessage(`Successfully loaded ${result.count} publications!`);
-      await loadPublications();
-      setTimeout(() => setSyncMessage(''), 3000);
-    } else {
-      setSyncMessage(`Error: ${result.error}`);
+      if (result.success) {
+        setSyncMessage(`Successfully loaded ${result.count} publications!`);
+        await loadPublications();
+        setTimeout(() => setSyncMessage(''), 3000);
+      } else {
+        setSyncMessage(`Error: ${result.error}`);
+        setTimeout(() => setSyncMessage(''), 5000);
+      }
+    } catch (err) {
+      console.error('Error seeding publications:', err);
+      setSyncMessage('Unexpected error occurred while loading publications');
       setTimeout(() => setSyncMessage(''), 5000);
+    } finally {
+      setSyncing(false);
     }
-
-    setSyncing(false);
   }
 
   async function loadPublications() {
     setLoading(true);
-    const data = await getPublications();
-    setPublications(data);
-    setLoading(false);
+    setError(null);
+    
+    try {
+      const data = await getPublications();
+      setPublications(data || []);
+    } catch (err) {
+      console.error('Error loading publications:', err);
+      setError('Failed to load publications. Please try again.');
+      setPublications([]);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleSync() {
     setSyncing(true);
     setSyncMessage('Syncing with Google Scholar...');
+    setError(null);
 
-    const result = await syncGoogleScholar(GOOGLE_SCHOLAR_ID);
+    try {
+      const result = await syncGoogleScholar(GOOGLE_SCHOLAR_ID);
 
-    if (result.success) {
-      setSyncMessage(`Successfully synced ${result.count} publications!`);
-      await loadPublications();
-      setTimeout(() => setSyncMessage(''), 3000);
-    } else {
-      if (result.error?.includes('403')) {
-        setSyncMessage('Google Scholar blocked the request. Use "Load Publications" button instead or update publications manually in the database.');
+      if (result.success) {
+        setSyncMessage(`Successfully synced ${result.count} publications!`);
+        await loadPublications();
+        setTimeout(() => setSyncMessage(''), 3000);
       } else {
-        setSyncMessage(`Error: ${result.error}`);
+        if (result.error?.includes('403')) {
+          setSyncMessage('Google Scholar blocked the request. Use "Load Publications" button instead or update publications manually in the database.');
+        } else {
+          setSyncMessage(`Error: ${result.error}`);
+        }
+        setTimeout(() => setSyncMessage(''), 8000);
       }
-      setTimeout(() => setSyncMessage(''), 8000);
+    } catch (err) {
+      console.error('Error syncing with Google Scholar:', err);
+      setSyncMessage('Unexpected error occurred during sync');
+      setTimeout(() => setSyncMessage(''), 5000);
+    } finally {
+      setSyncing(false);
     }
-
-    setSyncing(false);
   }
 
-  // Get unique years and sort them
-  const years = Array.from(new Set(publications.map(p => p.year))).sort((a, b) => b - a);
+  // Get unique years and sort them - with safety check
+  const years = publications.length > 0 
+    ? Array.from(new Set(publications.map(p => p.year))).sort((a, b) => b - a)
+    : [];
   
   // Filter publications based on search and filters
   const filteredPublications = publications.filter(pub => {
@@ -121,15 +151,9 @@ export default function Publications() {
     }
   };
 
-  const publicationStats = {
-    total: publications.length,
-    journals: publications.filter(p => p.type === 'journal').length,
-    conferences: publications.filter(p => p.type === 'conference').length,
-    totalCitations: publications.reduce((sum, p) => sum + p.citations, 0),
-    hIndex: calculateHIndex(publications)
-  };
-
   function calculateHIndex(pubs: Publication[]): number {
+    if (pubs.length === 0) return 0;
+    
     const citationsSorted = pubs.map(p => p.citations).sort((a, b) => b - a);
     let hIndex = 0;
     for (let i = 0; i < citationsSorted.length; i++) {
@@ -142,6 +166,16 @@ export default function Publications() {
     return hIndex;
   }
 
+  // Calculate publication stats with safety checks
+  const publicationStats = {
+    total: publications.length,
+    journals: publications.filter(p => p.type === 'journal').length,
+    conferences: publications.filter(p => p.type === 'conference').length,
+    totalCitations: publications.reduce((sum, p) => sum + p.citations, 0),
+    hIndex: calculateHIndex(publications),
+    yearsActive: years.length > 0 ? Math.max(...years) - Math.min(...years) + 1 : 0
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
@@ -150,6 +184,31 @@ export default function Publications() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-900 mx-auto"></div>
             <p className="mt-4 text-gray-600">Loading publications...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error && publications.length === 0) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
+        <main className="pt-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <div className="text-red-600 mb-4">
+              <AlertCircle className="w-16 h-16 mx-auto mb-4" />
+              <h2 className="text-2xl font-bold mb-2">Error Loading Publications</h2>
+              <p className="text-gray-600 mb-6">{error}</p>
+            </div>
+            <button
+              onClick={loadPublications}
+              className="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors duration-200"
+            >
+              <RefreshCw className="w-5 h-5 mr-2" />
+              Try Again
+            </button>
           </div>
         </main>
         <Footer />
@@ -224,7 +283,7 @@ export default function Publications() {
               
               <div className="bg-white rounded-lg shadow-lg p-6 text-center border border-gray-200">
                 <Calendar className="w-8 h-8 text-orange-600 mx-auto mb-2" />
-                <div className="text-2xl font-bold text-gray-900">{Math.max(...years) - Math.min(...years) + 1}</div>
+                <div className="text-2xl font-bold text-gray-900">{publicationStats.yearsActive}</div>
                 <div className="text-sm text-gray-600">Years Active</div>
               </div>
             </div>
@@ -248,7 +307,7 @@ export default function Publications() {
               </div>
 
               {/* Filters */}
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-4 items-center flex-wrap">
                 <select
                   className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   value={filterYear}
@@ -407,11 +466,26 @@ export default function Publications() {
               ))}
             </div>
 
-            {sortedPublications.length === 0 && (
+            {sortedPublications.length === 0 && publications.length > 0 && (
               <div className="text-center py-12">
                 <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-medium text-gray-900 mb-2">No publications found</h3>
                 <p className="text-gray-600">Try adjusting your search terms or filters</p>
+              </div>
+            )}
+
+            {publications.length === 0 && (
+              <div className="text-center py-12">
+                <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-medium text-gray-900 mb-2">No publications yet</h3>
+                <p className="text-gray-600 mb-6">Click "Load Publications" to import your publications</p>
+                <button
+                  onClick={handleSeedData}
+                  disabled={syncing}
+                  className="inline-flex items-center px-6 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                >
+                  Load Publications
+                </button>
               </div>
             )}
           </div>
