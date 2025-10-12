@@ -13,9 +13,6 @@ import bash from 'highlight.js/lib/languages/bash';
 import sql from 'highlight.js/lib/languages/sql';
 import java from 'highlight.js/lib/languages/java';
 import cpp from 'highlight.js/lib/languages/cpp';
-import DOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
-
 // Register languages for highlight.js
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('python', python);
@@ -27,10 +24,6 @@ hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('sql', sql);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('cpp', cpp);
-
-// Create JSDOM instance for server-side DOMPurify
-const window = new JSDOM('').window;
-const purify = DOMPurify(window as any);
 
 export interface BlogPost {
   slug: string;
@@ -198,9 +191,6 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
     // Convert markdown to HTML with syntax highlighting
     const htmlContent = marked.parse(content) as string;
-    
-    // Sanitize HTML to prevent XSS attacks
-    const sanitizedContent = purify.sanitize(htmlContent);
 
     return {
       slug,
@@ -209,7 +199,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       author: data.author || 'Unknown Author',
       coverImage: data.coverImage,
       tags: data.tags || [],
-      content: sanitizedContent,
+      content: htmlContent,
       excerpt: generateExcerpt(content),
       readTime: calculateReadTime(content)
     };

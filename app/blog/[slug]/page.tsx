@@ -11,6 +11,9 @@ interface BlogPostPageProps {
   };
 }
 
+export const dynamic = 'force-static';
+export const dynamicParams = true;
+
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getPostBySlug(params.slug);
   
