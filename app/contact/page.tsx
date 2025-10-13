@@ -86,19 +86,19 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Office Phone',
-      details: '0431-2258444',
+      details: '',
       description: 'Available during office hours'
     },
     {
       icon: MapPin,
       title: 'Office Location',
-      details: 'Room 234, Computer Science Building',
-      description: 'SRM Institute of Science and Technology Campus'
+      details: 'Room 323, IST Block',
+      description: 'SRM Institute of Science and Technology , Tiruchirappalli Campus'
     },
     {
       icon: Clock,
       title: 'Office Hours',
-      details: 'Tue 2-4 PM, Thu 10 AM-12 PM',
+      details: ' Mon -Fri 9:00 AM to 4:30 PM ',
       description: 'Or by appointment via email'
     }
   ];
@@ -107,25 +107,25 @@ export default function Contact() {
     {
       icon: Linkedin,
       label: 'LinkedIn',
-      url: 'https://linkedin.com/in/sarah-johnson-prof',
+      url: 'https://linkedin.com/in/himanshurai14',
       color: 'hover:text-blue-600'
     },
     {
       icon: Github,
       label: 'GitHub',
-      url: 'https://github.com/sarah-johnson-prof',
+      url: 'https://github.com/himanshuraiml',
       color: 'hover:text-gray-800'
     },
     {
       icon: Twitter,
       label: 'Twitter',
-      url: 'https://twitter.com/sarah_johnson_cs',
+      url: 'https://twitter.com/himanshuraiml',
       color: 'hover:text-blue-400'
     },
     {
       icon: BookOpen,
       label: 'Google Scholar',
-      url: 'https://scholar.google.com/citations?user=sarah-johnson',
+      url: 'https://scholar.google.com/citations?user=vUQ7-UoAAAAJ&hl=en',
       color: 'hover:text-green-600'
     }
   ];
