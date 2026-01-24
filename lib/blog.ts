@@ -87,15 +87,27 @@ renderer.blockquote = ({ tokens }: any) => {
   return `<blockquote class="markdown-blockquote">${quote}</blockquote>`;
 };
 
-// Custom table renderer
-renderer.table = ({ header, rows }: any) => `
-  <div class="table-container">
-    <table class="markdown-table">
-      <thead>${header}</thead>
-      <tbody>${rows}</tbody>
-    </table>
-  </div>
-`;
+renderer.table = ({ header, rows }: any) => {
+  const renderCell = (cell: any, isHeader: boolean) => {
+    const tag = isHeader ? 'th' : 'td';
+    const text = cell.tokens ? cell.tokens.map((t: any) => t.text || t.raw).join('') : (cell.text || '');
+    return `<${tag}>${text}</${tag}>`;
+  };
+
+  const headerHtml = header.map((cell: any) => renderCell(cell, true)).join('');
+  const rowsHtml = rows.map((row: any) =>
+    `<tr>${row.map((cell: any) => renderCell(cell, false)).join('')}</tr>`
+  ).join('');
+
+  return `
+    <div class="table-container">
+      <table class="markdown-table">
+        <thead><tr>${headerHtml}</tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>
+  `;
+};
 
 // Custom link renderer for external links
 renderer.link = ({ href, title, tokens }: any) => {
@@ -119,19 +131,29 @@ function calculateReadTime(content: string): number {
   return Math.ceil(words / wordsPerMinute);
 }
 
+function cleanContent(content: string): string {
+  return content
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/\[\]\([^)]*\)/g, '')
+    .replace(/\u200B/g, '')
+    .trim();
+}
+
 function generateExcerpt(content: string, maxLength: number = 200): string {
-  // Remove markdown syntax and get plain text
-  const plainText = content
-    .replace(/#{1,6}\s+/g, '') // Remove headings
-    .replace(/\*\*([^*]+)\*\*/g, '$1') // Remove bold
-    .replace(/\*([^*]+)\*/g, '$1') // Remove italic
-    .replace(/`([^`]+)`/g, '$1') // Remove inline code
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links
-    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '') // Remove images
-    .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-    .replace(/^\s*[-*+]\s+/gm, '') // Remove list markers
-    .replace(/^\s*\d+\.\s+/gm, '') // Remove numbered list markers
-    .replace(/^\s*>\s+/gm, '') // Remove blockquotes
+  const plainText = cleanContent(content)
+    .replace(/#{1,6}\s+/g, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '')
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/^\s*>\s+/gm, '')
+    .replace(/\|[^|]*\|/g, '')
+    .replace(/[-]{3,}/g, '')
+    .replace(/\n\s*\n/g, '\n')
     .trim();
 
   if (plainText.length <= maxLength) {
@@ -156,6 +178,7 @@ export function getAllPosts(): BlogPost[] {
         const fullPath = path.join(postsDirectory, fileName);
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const { data, content } = matter(fileContents);
+        const cleanedContent = cleanContent(content);
 
         return {
           slug,
@@ -164,9 +187,9 @@ export function getAllPosts(): BlogPost[] {
           author: data.author || 'Unknown Author',
           coverImage: data.coverImage,
           tags: data.tags || [],
-          content,
-          excerpt: generateExcerpt(content),
-          readTime: calculateReadTime(content)
+          content: cleanedContent,
+          excerpt: generateExcerpt(cleanedContent),
+          readTime: calculateReadTime(cleanedContent)
         };
       });
 
@@ -189,8 +212,8 @@ export function getPostBySlug(slug: string): BlogPost | null {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    // Convert markdown to HTML with syntax highlighting
-    const htmlContent = marked.parse(content) as string;
+    const cleanedContent = cleanContent(content);
+    const htmlContent = marked.parse(cleanedContent) as string;
 
     return {
       slug,
