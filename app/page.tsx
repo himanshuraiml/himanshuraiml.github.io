@@ -102,22 +102,37 @@ export default function Home() {
 
               {/* QR Attendance System */}
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col">
-                <div className="relative h-48 w-full bg-gray-100 border-b">
+                <div className="relative h-64 w-full bg-gray-100 border-b">
                   <Carousel className="w-full h-full">
                     <CarouselContent>
                       <CarouselItem>
-                        <div className="relative h-48 w-full flex items-center justify-center bg-gray-200">
-                          <span className="text-gray-400 font-medium">Dashboard View</span>
+                        <div className="relative h-64 w-full">
+                          <Image
+                            src="/qr-login.jpg"
+                            alt="Attendance System Login"
+                            fill
+                            className="object-contain"
+                          />
                         </div>
                       </CarouselItem>
                       <CarouselItem>
-                        <div className="relative h-48 w-full flex items-center justify-center bg-gray-200">
-                          <span className="text-gray-400 font-medium">QR Scan Interface</span>
+                        <div className="relative h-64 w-full">
+                          <Image
+                            src="/qr-dashboard.jpg"
+                            alt="Admin Dashboard"
+                            fill
+                            className="object-contain"
+                          />
                         </div>
                       </CarouselItem>
                       <CarouselItem>
-                        <div className="relative h-48 w-full flex items-center justify-center bg-gray-200">
-                          <span className="text-gray-400 font-medium">Reporting Module</span>
+                        <div className="relative h-64 w-full">
+                          <Image
+                            src="/qr-code.jpg"
+                            alt="Student QR Code"
+                            fill
+                            className="object-contain"
+                          />
                         </div>
                       </CarouselItem>
                     </CarouselContent>
