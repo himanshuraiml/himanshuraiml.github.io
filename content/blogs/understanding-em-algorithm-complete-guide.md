@@ -26,7 +26,7 @@ The **Expectation-Maximization (EM) algorithm** is an iterative method for findi
 - The data is **incomplete or has missing values**, or
 - The model depends on **unobserved latent variables**
 
-> **Analogy:** Imagine you have a bag of coins, but you don't know which coins are fair and which are biased. You flip them and record the results, but someone forgot to label which coin produced which result. The EM algorithm helps you figure out **both** which coin is which **AND** what their bias probabilities are — simultaneously!
+> *Analogy:* Imagine you have a bag of coins, but you don't know which coins are fair and which are biased. You flip them and record the results, but someone forgot to label which coin produced which result. The EM algorithm helps you figure out **both** which coin is which **AND** what their bias probabilities are — simultaneously!
 
 
 
