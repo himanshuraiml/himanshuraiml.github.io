@@ -1,8 +1,9 @@
 ---
-title: "Mastering the EM Algorithm: A Complete Guide with Mathematical Derivations and Python Implementation"
+title: "Mastering the EM Algorithm: A Complete Guide with Mathematical
+  Derivations and Python Implementation"
 date: 2026-03-05
 author: Dr. Himanshu Rai
-coverImage: /images/blog/em-algorithm.png
+coverImage: https://upload.wikimedia.org/wikipedia/commons/a/a7/Em_old_faithful.gif
 tags:
   - Machine Learning
   - EM Algorithm
