@@ -275,25 +275,92 @@
   @apply text-blue-400;
 }
 
+/* KaTeX Math Equation Styling */
+.katex-mathml {
+  display: none !important;
+}
+
+.katex-display {
+  @apply my-6 overflow-x-auto overflow-y-hidden;
+}
+
+.katex {
+  font-size: 1.1em !important;
+}
+
+.katex-display > .katex {
+  white-space: normal;
+}
+
+.katex-display > .katex > .katex-html {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+/* Inline math */
+.prose .katex {
+  @apply inline-block;
+}
+
+/* Display math */
+.prose .katex-display {
+  @apply block text-center my-6 p-4 bg-gray-50 rounded-lg border border-gray-200;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.prose .katex-display .katex {
+  @apply text-gray-900;
+}
+
+/* Better scrolling for math equations */
+.katex-display::-webkit-scrollbar {
+  height: 8px;
+}
+
+.katex-display::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded;
+}
+
+.katex-display::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded;
+}
+
+.katex-display::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {
   .markdown-content {
     @apply prose-sm;
   }
-  
+
   .code-block-container {
     @apply mx-0;
   }
-  
+
   .code-block {
     @apply text-xs;
   }
-  
+
   .anchor-link {
     @apply hidden;
   }
-  
+
   .table-container {
     @apply -mx-4;
+  }
+
+  .katex {
+    font-size: 1em !important;
+  }
+
+  .prose .katex-display {
+    @apply text-sm p-2;
   }
 }

@@ -120,17 +120,17 @@ renderer.link = ({ href, title, tokens }: any) => {
   return `<a href="${href}" ${titleAttr} ${rel} ${target} class="markdown-link">${text}</a>`;
 };
 
-// Configure marked with GFM and custom renderer
+// Add KaTeX extension FIRST for math rendering
+marked.use(markedKatex({
+  throwOnError: false
+}));
+
+// Then configure marked with GFM and custom renderer
 marked.use({
   renderer,
   gfm: true,
   breaks: true
 });
-
-// Add KaTeX extension for math rendering
-marked.use(markedKatex({
-  throwOnError: false
-}));
 
 function calculateReadTime(content: string): number {
   const wordsPerMinute = 200;
