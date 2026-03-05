@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import markedKatex from 'marked-katex-extension';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import python from 'highlight.js/lib/languages/python';
@@ -119,11 +120,17 @@ renderer.link = ({ href, title, tokens }: any) => {
   return `<a href="${href}" ${titleAttr} ${rel} ${target} class="markdown-link">${text}</a>`;
 };
 
+// Configure marked with GFM and custom renderer
 marked.use({
   renderer,
   gfm: true,
   breaks: true
 });
+
+// Add KaTeX extension for math rendering
+marked.use(markedKatex({
+  throwOnError: false
+}));
 
 function calculateReadTime(content: string): number {
   const wordsPerMinute = 200;
