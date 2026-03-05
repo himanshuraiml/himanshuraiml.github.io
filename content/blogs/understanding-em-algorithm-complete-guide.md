@@ -60,7 +60,7 @@ Our goal is to maximize the log-likelihood of the observed data:
 
 $$\theta^* = \arg\max_\theta \log P(X \mid \theta)$$
 
-But computing $P(X \mid \theta)$ requires marginalizing over $Z$:
+But computing P(X $\mid$ $\theta$) requires marginalizing over $Z$:
 
 $$P(X \mid \theta) = \sum_Z P(X, Z \mid \theta)$$
 
