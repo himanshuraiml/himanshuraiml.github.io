@@ -26,7 +26,7 @@ The **Expectation-Maximization (EM) algorithm** is an iterative method for findi
 - The data is **incomplete or has missing values**, or
 - The model depends on **unobserved latent variables**
 
-> *Analogy:* Imagine you have a bag of coins, but you don't know which coins are fair and which are biased. You flip them and record the results, but someone forgot to label which coin produced which result. The EM algorithm helps you figure out **both** which coin is which **AND** what their bias probabilities are — simultaneously!
+>  **Analogy:** Imagine you have a bag of coins, but you don't know which coins are fair and which are biased. You flip them and record the results, but someone forgot to label which coin produced which result. The EM algorithm helps you figure out **both** which coin is which **AND** what their bias probabilities are — simultaneously!
 
 
 
@@ -54,7 +54,7 @@ Let's formalize this. Suppose we have:
 | $X$ | Observed data (what we can see) |
 | $Z$ | Hidden/latent variables (what we can't see) |
 | $\theta$ | Parameters we want to estimate |
-| $P(X, Z \mid \theta)$ | Joint probability of observed and hidden data |
+| P(X, Z $\mid$ $\theta$) | Joint probability of observed and hidden data |$
 
 Our goal is to maximize the log-likelihood of the observed data:
 
