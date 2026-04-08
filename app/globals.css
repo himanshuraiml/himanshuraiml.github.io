@@ -183,8 +183,14 @@
   @apply text-gray-100 font-mono;
 }
 
-.prose code {
+/* Inline code (not in code blocks) */
+.prose :not(pre) > code {
   @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+/* Code inside pre blocks - no background */
+.prose pre code {
+  @apply bg-transparent text-inherit p-0;
 }
 
 .table-container {
