@@ -95,7 +95,7 @@ PCA keeps directions with high variance and can discard directions with low vari
 
 Before going deeper, let us define a few important terms.
 
-## 1. Feature
+### 1. Feature
 
 A feature is an input variable in the dataset.
 
@@ -106,17 +106,17 @@ Example:
 * Age
 * Salary
 
-## 2. Dimension
+### 2. Dimension
 
 Each feature represents one dimension. If a dataset has 5 features, it is a 5-dimensional dataset.
 
-## 3. Variance
+### 3. Variance
 
 Variance measures how spread out the data is.
 
 If a feature changes a lot across samples, it has high variance.
 
-## 4. Covariance
+### 4. Covariance
 
 Covariance tells us how two features vary together.
 
@@ -124,7 +124,7 @@ Covariance tells us how two features vary together.
 * Negative covariance: one increases while the other decreases.
 * Near-zero covariance: little relationship.
 
-## 5. Eigenvectors and Eigenvalues
+### 5. Eigenvectors and Eigenvalues
 
 These are mathematical concepts used in PCA.
 
@@ -158,13 +158,13 @@ If most of the information lies along the first axis, we may keep only that axis
 
 Now let us understand how PCA is performed.
 
-## Step 1: Collect the Dataset
+### Step 1: Collect the Dataset
 
 Suppose the dataset has n samples and d features.
 
 For example, 100 students and 4 features per student.
 
-## Step 2: Standardize the Data
+### Step 2: Standardize the Data
 
 This is one of the most important steps.
 
@@ -192,7 +192,7 @@ After standardization:
 * Mean becomes 0
 * Standard deviation becomes 1
 
-## Step 3: Compute the Covariance Matrix
+### Step 3: Compute the Covariance Matrix
 
 The covariance matrix captures how features relate to one another.
 
@@ -207,7 +207,7 @@ This matrix shows:
 * Diagonal values: variance of each feature
 * Off-diagonal values: covariance between pairs of features
 
-## Step 4: Compute Eigenvalues and Eigenvectors
+### Step 4: Compute Eigenvalues and Eigenvectors
 
 Now we calculate the eigenvalues and eigenvectors of the covariance matrix.
 
@@ -216,7 +216,7 @@ Now we calculate the eigenvalues and eigenvectors of the covariance matrix.
 
 If a component has a larger eigenvalue, it captures more important information.
 
-## Step 5: Sort the Principal Components
+### Step 5: Sort the Principal Components
 
 Sort the eigenvectors by descending eigenvalues.
 
@@ -226,7 +226,7 @@ This gives:
 * Second principal component: next maximum variance
 * Third principal component: next, and so on
 
-## Step 6: Select the Number of Components
+### Step 6: Select the Number of Components
 
 We do not always keep all components. We select only the top k components that explain most of the variance.
 
@@ -236,7 +236,7 @@ Explained Variance Ratio=Sum of all eigenvaluesEigenvalue of component​
 
 If the first 2 components explain 95% of the variance, then we may keep only those 2 components.
 
-## Step 7: Transform the Original Data
+### Step 7: Transform the Original Data
 
 Finally, project the original standardized data onto the selected principal components.
 
@@ -481,21 +481,21 @@ This reduced representation can then be used in:
 
 There is no single rule, but common methods include:
 
-## 1. Explained Variance Threshold
+### 1. Explained Variance Threshold
 
 Keep enough components to preserve 90%, 95%, or 99% variance.
 
-## 2. Scree Plot
+### 2. Scree Plot
 
 A scree plot shows eigenvalues or explained variance for each component.
 
 Look for the **elbow point**, where the gain starts decreasing sharply.
 
-## 3. Based on Visualization Need
+### 3. Based on Visualization Need
 
 If you want to visualize high-dimensional data, reduce to 2 or 3 components.
 
-## Mathematical Summary
+### Mathematical Summary
 
 Let the original standardized data matrix be X.
 
@@ -533,23 +533,23 @@ If you are applying PCA in a real machine learning project, remember these point
 
 Here are a few common questions students may face:
 
-## Is PCA supervised or unsupervised?
+### Is PCA supervised or unsupervised?
 
 PCA is an **unsupervised** learning technique because it does not use target labels.
 
-## Does PCA reduce overfitting?
+### Does PCA reduce overfitting?
 
 It can help reduce overfitting by removing noisy or redundant features, but it is not guaranteed.
 
-## Why do we standardize data before PCA?
+### Why do we standardize data before PCA?
 
 Because PCA depends on variance, and features with larger scales can dominate if data is not standardized.
 
-## Is PCA feature selection?
+### Is PCA feature selection?
 
 No. PCA is **feature extraction** because it creates new features.
 
-## Can PCA be used for visualization?
+### Can PCA be used for visualization?
 
 Yes. PCA is often used to reduce data to 2 or 3 dimensions for plotting.
 
