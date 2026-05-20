@@ -67,12 +67,12 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              {/* Medhiva Project */}
+              {/* Placenxt Project */}
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="relative h-48 w-full border-b">
                   <Image
-                    src="/medhiva-screenshot.png"
-                    alt="Medhiva Website"
+                    src="https://placenxt.com/og-image.png"
+                    alt="Placenxt Website"
                     fill
                     className="object-cover object-top"
                   />
@@ -80,18 +80,18 @@ export default function Home() {
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
-                      <CardTitle className="mb-2">Medhiva</CardTitle>
-                      <CardDescription>AI-Powered Career Acceleration</CardDescription>
+                      <CardTitle className="mb-2">PlaceNxt</CardTitle>
+                      <CardDescription>AI-Driven Placement Preparation</CardDescription>
                     </div>
                     <Badge variant="secondary">EdTech + AI</Badge>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-4 text-sm">
-                    A gamified, AI-driven platform guiding users from resume optimization to landing their dream job. Includes success rate tracking and user ratings.
+                    An AI-powered platform that validates student skills through mock interviews and assessments, helping them get hired based on verified talent rather than resumes alone.
                   </p>
                   <Link
-                    href="https://www.medhiva.com"
+                    href="https://www.placenxt.com"
                     target="_blank"
                     className="inline-flex items-center text-blue-900 hover:text-blue-700 font-medium"
                   >
