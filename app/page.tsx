@@ -33,7 +33,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
               {/* Tribaah Project */}
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="relative h-48 w-full border-b">
@@ -96,6 +96,39 @@ export default function Home() {
                     className="inline-flex items-center text-blue-900 hover:text-blue-700 font-medium"
                   >
                     Visit Website <ExternalLink className="ml-2 h-4 w-4" />
+                  </Link>
+                </CardContent>
+              </Card>
+
+              {/* AutoMeta Project */}
+              <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="relative h-48 w-full border-b">
+                  <Image
+                    src="/image copy copy copy copy.png"
+                    alt="AutoMeta - AI Studio for Automata Theory"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="mb-2">AutoMeta</CardTitle>
+                      <CardDescription>AI Studio for Automata Theory</CardDescription>
+                    </div>
+                    <Badge variant="secondary">AI Tool</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4 text-sm">
+                    An AI-powered studio for designing, simulating, and learning automata theory — featuring DFA/NFA editors, grammar tools, and Turing Machine simulations with real-time AI feedback.
+                  </p>
+                  <Link
+                    href="https://github.com/himanshuraiml/autometa"
+                    target="_blank"
+                    className="inline-flex items-center text-blue-900 hover:text-blue-700 font-medium"
+                  >
+                    <Github className="mr-1 h-4 w-4" /> View on GitHub
                   </Link>
                 </CardContent>
               </Card>
